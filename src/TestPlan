@@ -1,0 +1,625 @@
+TEST PLAN
+
+The test plan involves testing each class starting with the Classes with the least
+dependencies and working up. MedCond, TravProf, TravProfDB, TravProfInterface
+
+MedCond, Dependencies: None
+
+See MedCondTest.java for test code
+
+Test 1-
+
+To test MedCond the class is initialized with 4 string parameters.
+Get methods are tested by calling them and printing their result.
+
+
+
+Input:
+MedCond("Dr.Xavier","123","Peanuts","stomach ache")
+
+System.out.println(TestMedCon.getMdContact());
+System.out.println(TestMedCon.getMdPhone());
+System.out.println(TestMedCon.getAlgType());
+System.out.println(TestMedCon.getMdContact());
+
+Expected Result:
+Dr.Xavier
+123
+Peanuts
+Dr.Xavier
+
+Test 2-
+
+Update methods are tested with input of new strings
+Updated information is printed
+
+Input:
+
+TestMedCon.updateMdContact("Dr.Doom");
+TestMedCon.updateMdPhone("000");
+TestMedCon.updateAlgType("Shell Fish");
+TestMedCon.updateIllType("Spider Bites");
+
+System.out.println(TestMedCon.getMdContact());
+System.out.println(TestMedCon.getMdPhone());
+System.out.println(TestMedCon.getAlgType());
+System.out.println(TestMedCon.getIllType());
+
+Expected Results:
+
+Dr.Doom
+000
+Shell Fish
+Spider Bites
+
+
+
+TravProv, Dependencies: MedCond
+
+See TravProv.Test for test code
+
+Test 1-
+
+Input:
+
+MedCond TestMedCon = new MedCond("Dr.Xavier","123","Peanuts","stomach ache");
+
+TravProf TestTravProv = new TravProf("AB12", "Peter", "Parker", "4th Av", "884", 10, "WebSlinging", "IOU", TestMedCon);
+
+
+
+System.out.println(TestTravProv.getTravAgentID());
+System.out.println(TestTravProv.getFirstName());
+System.out.println(TestTravProv.getLastName());
+System.out.println(TestTravProv.getAddress());
+System.out.println(TestTravProv.getPhone());
+System.out.println(TestTravProv.getTripCost());
+System.out.println(TestTravProv.getTravelType());
+System.out.println(TestTravProv.getPaymentType());
+
+Expected Results:
+AB12
+Peter
+Parker
+4th Av
+884
+10.0
+WebSlinging
+IOU
+
+Test 2-
+
+Input:
+
+TestTravProv.updateFirstName("Eddie");
+TestTravProv.updateLastName("Brock");
+TestTravProv.updateAddress("555 Av");
+TestTravProv.updatePhone("777");
+TestTravProv.updateTripCost(0);
+TestTravProv.updateTravelType("running");
+TestTravProv.updatePaymentType("stealing");
+
+System.out.println(TestTravProv.getTravAgentID());
+System.out.println(TestTravProv.getFirstName());
+System.out.println(TestTravProv.getLastName());
+System.out.println(TestTravProv.getAddress());
+System.out.println(TestTravProv.getPhone());
+System.out.println(TestTravProv.getTripCost());
+System.out.println(TestTravProv.getTravelType());
+System.out.println(TestTravProv.getPaymentType());
+
+Expected Result:
+
+AB12
+Eddie
+Brock
+555 Av
+777
+0.0
+running
+stealing
+
+
+TravProvDB, Dependencies: MedCond, TravProv
+
+
+Testing insertNewProfile and deleteProfile array scaling:
+
+The rational for this test is to make sure the size of the array scales properly when adding and deleting
+elements
+
+NOTE: TravProf[] travelerList should not be "Private" to do these test
+
+See TravProfDBTest "Test1()" for code.
+
+This code checks the scaling capabilities of the array when adding or removing elements
+The array will double in size before it becomes full and half in size when it becomes half empty
+
+To make sure the size scales appropriately a for loop is used to add and remove elements
+The size is printed to the console as the elements are added and removed
+
+
+
+Test1-
+Input:
+10 adds
+
+expected output:
+Adding
+Adding Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+array Size
+2
+Adding Profile Number 1
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+array Size
+2
+Adding Profile Number 2
+ID12
+2
+2
+2
+2
+10.0
+2
+2
+array Size
+4
+Adding Profile Number 3
+ID12
+3
+3
+3
+3
+10.0
+3
+3
+array Size
+4
+Adding Profile Number 4
+ID12
+4
+4
+4
+4
+10.0
+4
+4
+array Size
+8
+Adding Profile Number 5
+ID12
+5
+5
+5
+5
+10.0
+5
+5
+array Size
+8
+Adding Profile Number 6
+ID12
+6
+6
+6
+6
+10.0
+6
+6
+array Size
+8
+Adding Profile Number 7
+ID12
+7
+7
+7
+7
+10.0
+7
+7
+array Size
+8
+Adding Profile Number 8
+ID12
+8
+8
+8
+8
+10.0
+8
+8
+array Size
+16
+Adding Profile Number 9
+ID12
+9
+9
+9
+9
+10.0
+9
+9
+array Size
+16
+
+Test2-
+Input:
+10 deletes
+
+expected output:
+Deleting
+ deleting Profile Number 9
+ID12
+9
+9
+9
+9
+10.0
+9
+9
+array Size
+16
+ deleting Profile Number 8
+ID12
+8
+8
+8
+8
+10.0
+8
+8
+array Size
+16
+ deleting Profile Number 7
+ID12
+7
+7
+7
+7
+10.0
+7
+7
+array Size
+8
+ deleting Profile Number 6
+ID12
+6
+6
+6
+6
+10.0
+6
+6
+array Size
+8
+ deleting Profile Number 5
+ID12
+5
+5
+5
+5
+10.0
+5
+5
+array Size
+8
+ deleting Profile Number 4
+ID12
+4
+4
+4
+4
+10.0
+4
+4
+array Size
+8
+ deleting Profile Number 3
+ID12
+3
+3
+3
+3
+10.0
+3
+3
+array Size
+4
+ deleting Profile Number 2
+ID12
+2
+2
+2
+2
+10.0
+2
+2
+array Size
+4
+ deleting Profile Number 1
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+array Size
+2
+ deleting Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+array Size
+1
+
+Test 3:
+After all the elements are removed a new element is added, the size and contents are check one last time.
+Adding Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+array Size
+1
+
+
+Testing insertNewProfile() and deleteProfile() functionality:
+
+The Rational for this test is to make sure that profiles can be added and deleted without error
+
+See TravProfDBTest "Test2()" for code.
+
+This Test inserts 4 profiles, then prints their information.
+A profile is deleted using deleteProfile() and the information is printed again to check result
+
+Test1:
+4 accounts created and printed
+number 1 deleted
+remaining 3 accounts printed
+
+Result:
+NOTE: After deleting, profile 1 is now profile 3, and profile 1 is gone
+
+Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+Profile Number 1
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+Profile Number 2
+ID12
+2
+2
+2
+2
+10.0
+2
+2
+Profile Number 3
+ID12
+3
+3
+3
+3
+10.0
+3
+3
+
+Deleting 1
+
+Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+Profile Number 1
+ID12
+3
+3
+3
+3
+10.0
+3
+3
+Profile Number 2
+ID12
+2
+2
+2
+2
+10.0
+2
+2
+
+
+
+
+Testing findProfile(), findFirstProfile(), findNextProfile()
+
+The Rational for this test is to ensure findProfile(), findFirstProfile(), findNextProfile()
+work as expected without error.
+
+See TravProfDBTest "Test3()" for code.
+
+3 profiles are created
+
+Test1:
+Profile 1 is found with findProfile("ID12","1") and printed out
+
+Input:
+findProfile("ID12","1")
+
+Expected Result:
+Found Profile1
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+
+Test2:
+Find First and Next Profile with findFirstProfile() and findNextProfile() and print
+
+Input:
+findFirstProfile()
+findNextProfile()
+
+
+Expected Result:
+
+First Profile
+
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+
+Next Profile
+
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+
+Test3:
+Try to find a non existant profile with findProfile("IDNULL","NULL")
+
+Input:
+findProfile("IDNULL","NULL")
+
+Expected Result:
+
+Exception in thread "main" java.lang.NullPointerException
+	at TravProfDBTest.Test3(TravProfDBTest.java:145)
+	at TravProfDBTest.main(TravProfDBTest.java:12)
+
+
+
+
+Testing writeAllTravProf(), initializeDataBase()
+
+See TravProfDBTest "Test4()" for code.
+
+The implementation of the database uses a text file which is read line by line and split on commas for
+string and float data, and split on a semicolon for TravProf info and MedCond info
+
+The Rational of this test is to ensure all the information is being transferred to and from the
+text file "database" as well as ensuring the integrity of the information.
+
+
+Input:
+A for loop is used to generate 3 profiles which are then written to the "database"
+
+Expected Output:
+the contents of the database file are-
+
+ID12,0,0,0,0,10.0,0,0;0,0,0,0
+ID12,1,1,1,1,10.0,1,1;1,1,1,1
+ID12,2,2,2,2,10.0,2,2;2,2,2,2
+
+
+A new instance of TravProvDB is created. The information is loaded from the "database" and printed
+
+Input:
+TestDBRead.initializeDataBase("TestDatabase");
+
+Expected Output:
+Read Profiles
+Profile Number 0
+ID12
+0
+0
+0
+0
+10.0
+0
+0
+0
+0
+0
+0
+Profile Number 1
+ID12
+1
+1
+1
+1
+10.0
+1
+1
+1
+1
+1
+1
+Profile Number 2
+ID12
+2
+2
+2
+2
+10.0
+2
+2
+2
+2
+2
+2
+
+
+
+
+
+
